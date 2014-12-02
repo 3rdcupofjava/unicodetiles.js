@@ -6,6 +6,8 @@
 	<link href="../unicodetiles/unicodetiles.css" rel="stylesheet" type="text/css" />
 	<link href="../docs/style.css" rel="stylesheet" type="text/css" />
 	<link href="style.css" rel="stylesheet" type="text/css" />
+        
+        <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 	<script src="../unicodetiles/unicodetiles.js"></script>
 	<script src="../unicodetiles/ut.WebGLRenderer.js"></script>
 	<script src="../unicodetiles/ut.CanvasRenderer.js"></script>
@@ -24,17 +26,42 @@
 			return num / M;
 		}
 
+                var EGG = new ut.Tile("0", 80, 150, 80);
 		var GRASS = new ut.Tile(".", 80, 150, 80);
 		var GRASS2 = new ut.Tile(".", 90, 250, 90);
 		var TREE = new ut.Tile("☘", 20, 100, 20);
 		var ROCK = new ut.Tile("☁", 100, 100, 100);
+                //TODO: dirt, water, sugar, egg,
 
+                var map;
 		// Uses deterministic randomness to return a tile based on the coordinates
 		function getForestTile(x, y) {
-			var r = rand(Math.round(x), Math.round(y));
-			if (r > 0.80) return TREE;
-			if (r > 0.75) return ROCK;
-			if (r > 0.50) return GRASS2;
+                        if((x == 5 && y == 5)){ //&& pl.x == 3
+                            return TREE;
+                        }
+                        
+                        if((x == 3 && y == 5)){ //&& pl.x == 3
+                            return TREE;
+                        }
+                        if((x == 4 && y == 5)){ //&& pl.x == 3
+                            return TREE;
+                        }
+                        
+                        if((x == 5 && y == 14)){ //&& pl.x == 3
+                            return ROCK;
+                        }
+                        if((x == 5 && y == 15)){ //&& pl.x == 3
+                            return ROCK;
+                        }
+                        if((x == 5 && y == 16)){ //&& pl.x == 3
+                            return EGG;
+                        }
+                        
+                        else
+//			var r = rand(Math.round(x), Math.round(y));
+//			if (r > 0.80) return TREE;
+//			if (r > 0.75) return ROCK;
+//			if (r > 0.50) return GRASS2;
 			return GRASS;
 		}
 
@@ -44,7 +71,7 @@
 			// so we swap the tile function to the new one here
 			eng.setTileFunc(getForestTile);
 			// Enable tile cache for possibly improved performance
-			eng.setCacheEnabled(true);
+			//eng.setCacheEnabled(true);
 			// We want infinite world so we set the size to undefined
 			eng.w = undefined;
 			eng.h = undefined;
@@ -56,15 +83,15 @@
 
 	<p class="centerer">Move around with arrow keys.</p>
 
-	<div class="centerer">
-		<div id="game">Enable JavaScript and reload the page.</div>
+	<div class="">
+            <div id="game" style="float:left;">Enable JavaScript and reload the page.</div>
+            <div id="log"></div>
 	</div>
 
-	<div class="centerer" id="renderer-switcher">
-		<!-- Populated by renderer-switcher.js -->
+	<div class="" id="renderer-switcher">
+		<!-- Populated by renderer-switcher.js -->        
 	</div>
 
-	<a class="backlink" href="index.html">&lt;-- Back to index</a>
 
 </body>
 </html>
